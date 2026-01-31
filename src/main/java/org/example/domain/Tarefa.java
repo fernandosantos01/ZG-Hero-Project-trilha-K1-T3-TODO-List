@@ -37,6 +37,16 @@ public class Tarefa {
         this.categoria = categoria;
         this.status = status;
     }
+    public Tarefa(String nome, String descricao, LocalDate dataInicio, LocalDate dataFim, Prioridade prioridade, String categoria, Status status) {
+        this.id = GenerateValueId();
+        this.nome = nome;
+        this.descricao = descricao;
+        this.dataInicio = dataInicio;
+        this.dataFim = dataFim;
+        this.prioridade = prioridade;
+        this.categoria = categoria;
+        this.status = status;
+    }
 
     private Long GenerateValueId() {
         return contadorId++;
