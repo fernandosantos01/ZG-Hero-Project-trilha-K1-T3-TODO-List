@@ -2,6 +2,7 @@ package org.example.domain;
 
 import java.time.LocalDate;
 import java.util.Objects;
+import java.util.Set;
 
 
 public class Tarefa {
@@ -26,10 +27,30 @@ public class Tarefa {
         this.status = status;
     }
 
+    public Tarefa(Long id, String nome, String descricao, LocalDate dataInicio, LocalDate dataFim, Prioridade prioridade, String categoria, Status status) {
+        this.id = id;
+        this.nome = nome;
+        this.descricao = descricao;
+        this.dataInicio = dataInicio;
+        this.dataFim = dataFim;
+        this.prioridade = prioridade;
+        this.categoria = categoria;
+        this.status = status;
+    }
 
     private Long GenerateValueId() {
         return contadorId++;
-        //Ler o txt e para ver a posição do ID
+    }
+
+    public String paraArquivo() {
+        return id + ";" +
+                nome + ";" +
+                descricao + ";" +
+                dataInicio + ";" +
+                dataFim + ";" +
+                prioridade + ";" +
+                categoria + ";" +
+                status;
     }
 
     @Override
@@ -43,6 +64,16 @@ public class Tarefa {
                 "\nPrioridade = " + prioridade +
                 "\nCategoria = " + categoria +
                 "\nStatus = " + status;
+    }
+
+    public static void atualizarContador(Set<Tarefa> tarefas) {
+        long maiorId = 0;
+        for (Tarefa t : tarefas) {
+            if (t.getId() > maiorId) {
+                maiorId = t.getId();
+            }
+        }
+        contadorId = maiorId + 1;
     }
 
     @Override
