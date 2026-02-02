@@ -1,6 +1,6 @@
 # ZG Hero Project – TODO List (Console Java)
 
-Este repositório contém uma **aplicação de TODO List em Java executada via console**, desenvolvida como parte da trilha **K1-T3 do ZG Hero Project**. O projeto foca em lógica de programação, orientação a objetos, coleções, enums, tratamento de exceções e persistência simples em arquivo.
+Este repositório contém uma **aplicação de TODO List em Java executada via console**, desenvolvida como parte da trilha **K1-T3 do ZG Hero Project**. O projeto foca em lógica de programação, orientação a objetos, coleções, enums, tratamento de exceções, persistência em arquivo **e mecanismo de alarme de tarefas**.
 
 ---
 
@@ -8,12 +8,30 @@ Este repositório contém uma **aplicação de TODO List em Java executada via c
 
 Implementar um gerenciador de tarefas executado no terminal que permita ao usuário:
 
-* Criar tarefas com nome, descrição, categoria, datas, prioridade e status
+* Criar tarefas com nome, descrição, categoria, datas, prioridade, status **e alarme**
 * Listar tarefas com diferentes filtros (categoria, prioridade, status e data)
 * Atualizar qualquer atributo de uma tarefa existente
 * Remover tarefas pelo ID
 * Gerar um relatório consolidado por status
+* Ser notificado quando uma tarefa atingir a data configurada para o alarme
 * Persistir tarefas em arquivo entre execuções
+
+---
+
+## ⏰ Funcionalidade de Alarme
+
+O sistema conta com um **recurso de alarme de tarefas**, permitindo que o usuário defina uma data para ser notificado sobre tarefas importantes.
+
+### Como funciona
+
+* Cada tarefa pode possuir uma **data de alarme**
+* O sistema verifica automaticamente as tarefas ao iniciar e durante a execução
+* Quando a data atual coincide com a data configurada para o alarme:
+
+   * A tarefa é destacada no console
+   * O usuário é notificado de forma visual
+
+> O alarme foi implementado utilizando recursos nativos do Java, sem dependências externas, reforçando o domínio da linguagem e da lógica de controle de datas.
 
 ---
 
@@ -23,7 +41,7 @@ As tecnologias **reais** utilizadas neste projeto são:
 
 * **Java (JDK 11+)** – Linguagem principal
 * **Java Collections (Set / HashSet)** – Armazenamento das tarefas em memória
-* **java.time.LocalDate** – Manipulação de datas
+* **java.time.LocalDate** – Manipulação de datas e alarmes
 * **Enums** – Representação de Prioridade e Status
 * **Maven** – Gerenciamento de dependências e build (`pom.xml`)
 * **Aplicação Console (CLI)** – Interface baseada em menu interativo
@@ -43,7 +61,7 @@ ZG-Hero-Project-trilha-K1-T3-TODO-List
 │               └── example
 │                   ├── Main.java
 │                   ├── domain
-│                   │   ├── Tarefa.java
+│                   │   ├── Tarefa.java          # Inclui suporte a alarme
 │                   │   ├── Prioridade.java
 │                   │   └── Status.java
 │                   ├── service
@@ -72,9 +90,9 @@ ZG-Hero-Project-trilha-K1-T3-TODO-List
 1. Importe o projeto como **Maven Project**
 2. Execute a classe:
 
-   ```
-   org.example.Main
-   ```
+```
+org.example.Main
+```
 
 ### Execução via Maven (se configurado)
 
@@ -92,17 +110,19 @@ mvn exec:java
 * O ID das tarefas é controlado na entidade `Tarefa` e sincronizado após carga do arquivo.
 * A persistência é feita em **arquivo texto**, permitindo manter dados entre execuções.
 * A classe `GerenciadorDeArquivos` centraliza toda a lógica de leitura e escrita em disco.
-* O formato de persistência utiliza separador `;`, facilitando leitura e manutenção.
+* O recurso de **alarme** foi integrado ao modelo de domínio, mantendo a coesão da entidade `Tarefa`.
+* O sistema de alarme utiliza comparação de datas (`LocalDate`) para disparo de notificações.
 * Exceções customizadas encapsulam falhas críticas de I/O.
 
 ---
 
 ## 📊 Funcionalidades Disponíveis
 
-* ➕ Criar tarefa
+* ➕ Criar tarefa (com alarme)
 * 📋 Listar tarefas com filtros
 * ✏️ Atualizar tarefas
 * 🗑️ Remover tarefas
+* ⏰ Alerta de tarefas por data
 * 📈 Relatório de status
 * 💾 Salvamento automático ao sair
 
