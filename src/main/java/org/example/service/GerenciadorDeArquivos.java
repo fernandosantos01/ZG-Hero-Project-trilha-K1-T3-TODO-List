@@ -7,8 +7,10 @@ import org.example.expeption.ErroAoCarregarArquivoException;
 import org.example.expeption.ErroAoSalvarArquivoException;
 
 import java.io.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class GerenciadorDeArquivos {
@@ -27,7 +29,7 @@ public class GerenciadorDeArquivos {
     }
 
     public static Set<Tarefa> carregarTarefas() throws ErroAoCarregarArquivoException {
-        Set<Tarefa> tarefas = new HashSet<Tarefa>();
+        Set<Tarefa> tarefas = new HashSet<>();
         File file = new File(NOME_ARQUIVO);
 
         if (!file.exists()) {
@@ -38,23 +40,35 @@ public class GerenciadorDeArquivos {
             while ((linha = br.readLine()) != null) {
                 if (linha.trim().isEmpty()) continue;
                 String[] linhas = linha.split(";");
-
+                if (linhas.length < 8) continue;
                 // Reconstrói o objeto (Atenção à ordem dos campos no paraArquivo)
                 // 0:id, 1:nome, 2:desc, 3:dtIni, 4:dtFim, 5:prio, 6:cat, 7:status
                 Long id = Long.parseLong(linhas[0]);
                 String nome = linhas[1];
                 String desc = linhas[2];
-                LocalDate dtIni = LocalDate.parse(linhas[3]);
-                LocalDate dtFim = LocalDate.parse(linhas[4]);
+                LocalDateTime dtIni = LocalDateTime.parse(linhas[3]);
+                LocalDateTime dtFim = LocalDateTime.parse(linhas[4]);
                 Prioridade prio = Prioridade.valueOf(linhas[5]);
                 String cat = linhas[6];
                 Status status = Status.valueOf(linhas[7]);
 
-                Tarefa t = new Tarefa(id, nome, desc, dtIni, dtFim, prio, cat, status);
+                List<Integer> alarmes = new ArrayList<>();
+                if (linhas.length > 8 && !linhas[8].equals("sem_alarme")) {
+                    String[] alarmesStr = linhas[8].split("\\|");
+                    for (String s : alarmesStr) {
+                        try {
+                            alarmes.add(Integer.parseInt(s));
+                        } catch (NumberFormatException e) {
+                            // ignora alarme corrompido
+                        }
+                    }
+                }
+
+                Tarefa t = new Tarefa(id, nome, desc, dtIni, dtFim, prio, cat, status, alarmes);
                 tarefas.add(t);
             }
         } catch (Exception e) {
-            throw new ErroAoCarregarArquivoException("Falha crítica ao tentar carregar arquivo." , e);
+            throw new ErroAoCarregarArquivoException("Falha crítica ao tentar carregar arquivo.", e);
         }
         return tarefas;
     }

@@ -1,8 +1,12 @@
 package org.example.domain;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 
 public class Tarefa {
@@ -10,24 +14,27 @@ public class Tarefa {
     private Long id;
     private String nome;
     private String descricao;
-    private LocalDate dataInicio;
-    private LocalDate dataFim;
+    private LocalDateTime dataInicio;
+    private LocalDateTime dataFim;
     private Prioridade prioridade;
     private String categoria;
     private Status status;
+    private List<Integer> alarmes = new ArrayList<>();
 
-    public Tarefa(String nome, String descricao, int anoInicio, int mesInicio, int diaInicio, int anoFim, int mesFim, int diaFIm, Prioridade prioridade, String categoria, Status status) {
+    public Tarefa(String nome, String descricao, LocalDateTime dataInicio, LocalDateTime dataFim,
+                  Prioridade prioridade, String categoria, Status status, List<Integer> alarmes) {
         this.id = GenerateValueId();
         this.nome = nome;
         this.descricao = descricao;
-        this.dataInicio = LocalDate.of(anoInicio, mesInicio, diaInicio);
-        this.dataFim = LocalDate.of(anoFim, mesFim, diaFIm);
+        this.dataInicio = dataInicio;
+        this.dataFim = dataFim;
         this.prioridade = prioridade;
         this.categoria = categoria;
         this.status = status;
+        this.alarmes = (alarmes != null) ? alarmes : new ArrayList<>();
     }
 
-    public Tarefa(Long id, String nome, String descricao, LocalDate dataInicio, LocalDate dataFim, Prioridade prioridade, String categoria, Status status) {
+    public Tarefa(Long id, String nome, String descricao, LocalDateTime dataInicio, LocalDateTime dataFim, Prioridade prioridade, String categoria, Status status, List<Integer> alarmes) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
@@ -36,16 +43,7 @@ public class Tarefa {
         this.prioridade = prioridade;
         this.categoria = categoria;
         this.status = status;
-    }
-    public Tarefa(String nome, String descricao, LocalDate dataInicio, LocalDate dataFim, Prioridade prioridade, String categoria, Status status) {
-        this.id = GenerateValueId();
-        this.nome = nome;
-        this.descricao = descricao;
-        this.dataInicio = dataInicio;
-        this.dataFim = dataFim;
-        this.prioridade = prioridade;
-        this.categoria = categoria;
-        this.status = status;
+        this.alarmes = (alarmes != null) ? alarmes : new ArrayList<>();
     }
 
     private Long GenerateValueId() {
@@ -53,14 +51,19 @@ public class Tarefa {
     }
 
     public String paraArquivo() {
-        return id + ";" +
+        String alarmesString = alarmes.stream()
+                .map(String::valueOf)
+                .collect(Collectors.joining("|"));
+        if (alarmesString.isEmpty()) alarmesString = "sem_alarme";
+        return  id + ";" +
                 nome + ";" +
                 descricao + ";" +
                 dataInicio + ";" +
                 dataFim + ";" +
                 prioridade + ";" +
                 categoria + ";" +
-                status;
+                status + ";" +
+                alarmesString;
     }
 
     @Override
@@ -79,9 +82,7 @@ public class Tarefa {
     public static void atualizarContador(Set<Tarefa> tarefas) {
         long maiorId = 0;
         for (Tarefa t : tarefas) {
-            if (t.getId() > maiorId) {
-                maiorId = t.getId();
-            }
+            if (t.getId() > maiorId) maiorId = t.getId();
         }
         contadorId = maiorId + 1;
     }
@@ -122,20 +123,28 @@ public class Tarefa {
         this.nome = nome;
     }
 
-    public LocalDate getDataInicio() {
+    public LocalDateTime getDataInicio() {
         return dataInicio;
     }
 
-    public void setDataInicio(LocalDate dataInicio) {
+    public void setDataInicio(LocalDateTime dataInicio) {
         this.dataInicio = dataInicio;
     }
 
-    public LocalDate getDataFim() {
+    public LocalDateTime getDataFim() {
         return dataFim;
     }
 
-    public void setDataFim(LocalDate dataFim) {
+    public void setDataFim(LocalDateTime dataFim) {
         this.dataFim = dataFim;
+    }
+
+    public List<Integer> getAlarmes() {
+        return alarmes;
+    }
+
+    public void setAlarmes(List<Integer> alarmes) {
+        this.alarmes = alarmes;
     }
 
     public Prioridade getPrioridade() {

@@ -8,9 +8,8 @@ import org.example.expeption.ErroAoSalvarArquivoException;
 import org.example.service.GerenciadorDeArquivos;
 
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Scanner;
-import java.util.Set;
+import java.time.LocalDateTime;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -83,7 +82,7 @@ public class Main {
         System.out.println("Categoria: ");
         String categoria = limparTexto(in.nextLine());
 
-        LocalDate dataInicio = null;
+        LocalDateTime dataInicio = null;
         while (dataInicio == null) {
             try {
                 System.out.println("Data de Início:");
@@ -93,14 +92,18 @@ public class Main {
                 int mesIn = in.nextInt();
                 System.out.print("Ano: ");
                 int anoIn = in.nextInt();
-                dataInicio = LocalDate.of(anoIn, mesIn, diaIn);
+                System.out.print("Hora (0-23): ");
+                int hI = in.nextInt();
+                System.out.print("Minuto (0-59): ");
+                int minI = in.nextInt();
+                dataInicio = LocalDateTime.of(anoIn, mesIn, diaIn, hI, minI);
             } catch (Exception e) {
                 System.out.println("Data inválida (ex: mês 13 ou dia 32). Tente novamente.");
                 in.nextLine();
             }
         }
 
-        LocalDate dataFim = null;
+        LocalDateTime dataFim = null;
         while (dataFim == null) {
             try {
                 System.out.println("Data de Término : ");
@@ -110,9 +113,14 @@ public class Main {
                 int mesFim = in.nextInt();
                 System.out.print("Ano: ");
                 int anoFim = in.nextInt();
+                System.out.print("Hora (0-23): ");
+                int hF = in.nextInt();
+                System.out.print("Minuto (0-59): ");
+                int minF = in.nextInt();
+                dataFim = LocalDateTime.of(anoFim, mesFim, diaFim, hF, minF);
                 in.nextLine();
 
-                LocalDate tentativaFim = LocalDate.of(anoFim, mesFim, diaFim);
+                LocalDateTime tentativaFim = LocalDateTime.of(anoFim, mesFim, diaFim, hF, minF);
 
                 if (tentativaFim.isBefore(dataInicio)) {
                     System.out.println("ERRO: A data de término não pode ser anterior ao início (" + dataInicio + ")");
@@ -124,6 +132,46 @@ public class Main {
             } catch (Exception e) {
                 System.out.println("Data inválida. Tente novamente.");
                 in.nextLine();
+            }
+        }
+
+        List<Integer> alarmes = new ArrayList<>();
+        System.out.print("Deseja adicionar alarmes para esta tarefa? (S/N): ");
+        String resp = in.nextLine();
+
+        if (resp.equalsIgnoreCase("S")) {
+            while (true) {
+                System.out.println("Com quanta antecedência deseja ser avisado?");
+                System.out.println("1. 15 minutos antes");
+                System.out.println("2. 1 hora antes");
+                System.out.println("3. 1 dia antes");
+                System.out.println("4. Personalizado (minutos)");
+                System.out.println("0. Parar de adicionar alarmes");
+                System.out.print("Opção: ");
+
+                int opAlarme = in.nextInt();
+                in.nextLine();
+
+                if (opAlarme == 0) break;
+
+                switch (opAlarme) {
+                    case 1:
+                        alarmes.add(15);
+                        break;
+                    case 2:
+                        alarmes.add(60);
+                        break;
+                    case 3:
+                        alarmes.add(1440);
+                        break;
+                    case 4:
+                        System.out.print("Digite os minutos: ");
+                        alarmes.add(in.nextInt());
+                        in.nextLine();
+                        break;
+                }
+                System.out.println("Alarme adicionado! Adicionar outro? (S/N): ");
+                if (!in.nextLine().equalsIgnoreCase("S")) break;
             }
         }
 
@@ -151,8 +199,9 @@ public class Main {
         }
         try {
             Tarefa novaTarefa = new Tarefa(
-                    nome, descricao, dataInicio, dataFim, prioridade, categoria, Status.A_FAZER
+                    nome, descricao, dataInicio, dataFim, prioridade, categoria, Status.A_FAZER, alarmes
             );
+
             if (!lista.add(novaTarefa)) {
                 System.out.println("Erro: Tarefa duplicada (mesmo ID).");
             }
@@ -175,6 +224,7 @@ public class Main {
             System.out.println("2. Listar por Prioridade");
             System.out.println("3. Listar por Status");
             System.out.println("4. Listar por Data");
+            System.out.println("5. Listar TODAS (Ordenadas por Prioridade)");
             System.out.println("0. Voltar");
             System.out.print("Escolha uma opção: ");
 
@@ -210,6 +260,8 @@ public class Main {
                     case 4:
                         listarTarefaPorData(in, lista);
                         break;
+                    case 5:
+                        listarTodasPorPrioridade(lista);
                     case 0:
                         System.out.println("Voltando...");
                         break;
@@ -281,7 +333,8 @@ public class Main {
         in.nextLine();
 
         try {
-            java.time.LocalDate dataBuscada = java.time.LocalDate.of(ano, mes, dia);
+            //Revisar codigo
+            LocalDateTime dataBuscada = LocalDateTime.of(ano, mes, dia, 0, 0, 0);
             boolean encontrou = false;
 
             System.out.println("\nTarefas iniciadas em " + dataBuscada + ":");
@@ -326,6 +379,21 @@ public class Main {
         if (!encontrou) {
             System.out.println("Nenhuma tarefa com este status.");
         }
+    }
+    private static void listarTodasPorPrioridade(Set<Tarefa> tarefas) {
+        if (tarefas.isEmpty()) {
+            System.out.println("Nenhuma tarefa cadastrada.");
+            return;
+        }
+        List<Tarefa> listaOrdenada = new ArrayList<>(tarefas);
+
+        listaOrdenada.sort((t1, t2) -> t2.getPrioridade().compareTo(t1.getPrioridade()));
+
+        System.out.println("\n=== TODAS AS TAREFAS (Ordem de Prioridade: CRÍTICA -> MÍNIMA) ===");
+        for (Tarefa t : listaOrdenada) {
+            System.out.println(t);
+        }
+        System.out.println("------------------------------------------------------------------");
     }
 
     private static void consultarStatusTarefas(Set<Tarefa> lista) {
@@ -381,6 +449,7 @@ public class Main {
             System.out.println("Nenhuma tarefa encontrada com o ID " + idBuscado);
             return;
         }
+
         int opc = 0;
         do {
             System.out.println("\nEditando: " + tarefaEncontrada.getNome());
@@ -389,7 +458,7 @@ public class Main {
             System.out.println("3. Editar Categoria");
             System.out.println("4. Editar Prioridade");
             System.out.println("5. Editar Status");
-            System.out.println("6. Editar Datas");
+            System.out.println("6. Editar Datas e Horários");
             System.out.println("0. Finalizar Edição");
             System.out.print("O que deseja alterar? ");
 
@@ -415,71 +484,94 @@ public class Main {
                         break;
                     case 4:
                         System.out.println("Nova Prioridade (1-MINIMA, 2-BAIXA, 3-MEDIA, 4-ALTA, 5-CRITICA): ");
-                        int prio = in.nextInt();
-                        in.nextLine();
-                        Prioridade novaPrio = switch (prio) {
-                            case 1 -> Prioridade.MINIMA;
-                            case 2 -> Prioridade.BAIXA;
-                            case 3 -> Prioridade.MEDIA;
-                            case 4 -> Prioridade.ALTA;
-                            case 5 -> Prioridade.CRITICA;
-                            default -> Prioridade.MEDIA;
-                        };
-                        tarefaEncontrada.setPrioridade(novaPrio);
-                        System.out.println("Prioridade alterada para " + novaPrio);
+                        if (in.hasNextInt()) {
+                            int prio = in.nextInt();
+                            in.nextLine();
+                            Prioridade novaPrio = switch (prio) {
+                                case 1 -> Prioridade.MINIMA;
+                                case 2 -> Prioridade.BAIXA;
+                                case 3 -> Prioridade.MEDIA;
+                                case 4 -> Prioridade.ALTA;
+                                case 5 -> Prioridade.CRITICA;
+                                default -> Prioridade.MEDIA;
+                            };
+                            tarefaEncontrada.setPrioridade(novaPrio);
+                            System.out.println("Prioridade alterada para " + novaPrio);
+                        } else {
+                            in.nextLine();
+                            System.out.println("Prioridade inválida.");
+                        }
                         break;
                     case 5:
-                        System.out.println("Novo Status (1-TODO, 2-DOING, 3-DONE): ");
-                        int stat = in.nextInt();
-                        in.nextLine();
-                        Status novoStatus = switch (stat) {
-                            case 1 -> Status.A_FAZER;
-                            case 2 -> Status.EM_ANDAMENTO;
-                            case 3 -> Status.CONCLUIDO;
-                            default -> Status.A_FAZER;
-                        };
-                        tarefaEncontrada.setStatus(novoStatus);
-                        System.out.println("Status alterado para " + novoStatus);
+                        System.out.println("Novo Status (1-A FAZER, 2-EM ANDAMENTO, 3-CONCLUIDO): ");
+                        if (in.hasNextInt()) {
+                            int stat = in.nextInt();
+                            in.nextLine();
+                            Status novoStatus = switch (stat) {
+                                case 1 -> Status.A_FAZER;
+                                case 2 -> Status.EM_ANDAMENTO;
+                                case 3 -> Status.CONCLUIDO;
+                                default -> Status.A_FAZER;
+                            };
+                            tarefaEncontrada.setStatus(novoStatus);
+                            System.out.println("Status alterado para " + novoStatus);
+                        } else {
+                            in.nextLine();
+                            System.out.println("Status inválido.");
+                        }
                         break;
+
                     case 6:
-                        System.out.println("=== Alterando Datas ===");
-                        LocalDate novoInicio = null;
+                        System.out.println("=== Alterando Datas e Horários ===");
+
+                        LocalDateTime novoInicio = null;
                         while (novoInicio == null) {
                             try {
-                                System.out.print("Nova Data de Início (Dia Mês Ano): ");
-                                int d = in.nextInt();
-                                int m = in.nextInt();
-                                int a = in.nextInt();
-                                novoInicio = LocalDate.of(a, m, d);
+                                System.out.println("Nova Data de Início:");
+                                System.out.print("Dia: "); int d = in.nextInt();
+                                System.out.print("Mês: "); int m = in.nextInt();
+                                System.out.print("Ano: "); int a = in.nextInt();
+                                System.out.print("Hora (0-23): "); int h = in.nextInt();
+                                System.out.print("Minuto (0-59): "); int min = in.nextInt();
+
+                                novoInicio = LocalDateTime.of(a, m, d, h, min);
                             } catch (Exception e) {
-                                System.out.println("Data inválida.");
+                                System.out.println("Data/Hora inválida. Tente novamente.");
                                 in.nextLine();
                             }
                         }
-                        LocalDate novoFim = null;
+
+                        LocalDateTime novoFim = null;
                         while (novoFim == null) {
                             try {
-                                System.out.print("Nova Data de Fim (Dia Mês Ano): ");
-                                int d = in.nextInt();
-                                int m = in.nextInt();
-                                int a = in.nextInt();
-                                LocalDate tempFim = LocalDate.of(a, m, d);
+                                System.out.println("Nova Data de Término:");
+                                System.out.print("Dia: "); int d = in.nextInt();
+                                System.out.print("Mês: "); int m = in.nextInt();
+                                System.out.print("Ano: "); int a = in.nextInt();
+                                System.out.print("Hora (0-23): "); int h = in.nextInt();     // Novo
+                                System.out.print("Minuto (0-59): "); int min = in.nextInt(); // Novo
+
+                                LocalDateTime tempFim = LocalDateTime.of(a, m, d, h, min);
 
                                 if (tempFim.isBefore(novoInicio)) {
-                                    System.out.println("Erro: Data de término deve ser igual ou posterior ao início!");
+                                    System.out.println("Erro: Data de término deve ser posterior ao início (" + novoInicio + ")");
                                 } else {
                                     novoFim = tempFim;
                                 }
                             } catch (Exception e) {
-                                System.out.println("Data inválida.");
+                                System.out.println("Data/Hora inválida.");
                                 in.nextLine();
                             }
                         }
                         in.nextLine();
+
                         tarefaEncontrada.setDataInicio(novoInicio);
                         tarefaEncontrada.setDataFim(novoFim);
                         System.out.println("Datas atualizadas com sucesso!");
                         break;
+
+                    default:
+                        System.out.println("Opção desconhecida.");
                 }
             } else {
                 in.nextLine();
@@ -507,6 +599,38 @@ public class Main {
             in.nextLine();
             System.out.println("ID inválido.");
         }
+    }
+
+    private static void verificarAlarmes(Set<Tarefa> tarefas) {
+        System.out.println("Verificando alarmes...");
+        LocalDateTime agora = LocalDateTime.now();
+        boolean temAlerta = false;
+
+        for (Tarefa t : tarefas) {
+            if (t.getStatus() == Status.CONCLUIDO) continue;
+
+            List<Integer> alarmes = t.getAlarmes();
+            for (Integer minutosAntes : alarmes) {
+                LocalDateTime horarioDisparo = t.getDataFim().minusMinutes(minutosAntes);
+
+                if (agora.isAfter(horarioDisparo) && agora.isBefore(t.getDataFim())) {
+                    System.out.println("\n🔔 [ALARME DISPARADO] 🔔");
+                    System.out.println("Tarefa: " + t.getNome());
+                    System.out.println("Prazo final: " + t.getDataFim());
+                    System.out.println("Aviso configurado para: " + minutosAntes + " minutos antes.");
+
+                    long horasRestantes = java.time.Duration.between(agora, t.getDataFim()).toHours();
+                    System.out.println("⚠️ Faltam aproximadamente " + horasRestantes + " horas para o término!\n");
+                    temAlerta = true;
+                    break;
+                }
+            }
+        }
+
+        if (!temAlerta) {
+            System.out.println("Nenhum alarme ativo no momento.");
+        }
+        System.out.println("--------------------------------\n");
     }
 
     private static String limparTexto(String texto) {
