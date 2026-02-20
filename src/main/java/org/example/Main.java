@@ -7,16 +7,18 @@ import org.example.expeption.ErroAoCarregarArquivoException;
 import org.example.expeption.ErroAoSalvarArquivoException;
 import org.example.service.GerenciadorDeArquivos;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class Main {
     public static void main(String[] args) {
         Set<Tarefa> tarefas = new HashSet<>();
         try {
             System.out.println("Carregando tarefas...");
-            tarefas = GerenciadorDeArquivos.carregarTarefas();
+            tarefas.addAll(GerenciadorDeArquivos.carregarTarefas());
             Tarefa.atualizarContador(tarefas);
             System.out.println("Sistema iniciado. Tarefas carregadas: " + tarefas.size());
         } catch (ErroAoCarregarArquivoException e) {
@@ -24,6 +26,12 @@ public class Main {
             System.err.println("Motivo: " + e.getMessage());
             e.printStackTrace();
         }
+        ScheduledExecutorService agendadorDeAlarmes = Executors.newScheduledThreadPool(1);
+
+        final Set<Tarefa> tarefasReferencia = tarefas;
+        agendadorDeAlarmes.scheduleAtFixedRate(() -> {
+            verificarAlarmes(tarefasReferencia);
+        }, 0, 1, TimeUnit.MINUTES);
         Scanner in = new Scanner(System.in);
         int opc = 0;
         do {
@@ -65,6 +73,7 @@ public class Main {
                     System.out.println("Opção inválida!");
             }
         } while (opc != 6);
+        agendadorDeAlarmes.shutdown();
         try {
             GerenciadorDeArquivos.salvarTarefas(tarefas);
         } catch (ErroAoSalvarArquivoException e) {
@@ -380,6 +389,7 @@ public class Main {
             System.out.println("Nenhuma tarefa com este status.");
         }
     }
+
     private static void listarTodasPorPrioridade(Set<Tarefa> tarefas) {
         if (tarefas.isEmpty()) {
             System.out.println("Nenhuma tarefa cadastrada.");
@@ -528,11 +538,16 @@ public class Main {
                         while (novoInicio == null) {
                             try {
                                 System.out.println("Nova Data de Início:");
-                                System.out.print("Dia: "); int d = in.nextInt();
-                                System.out.print("Mês: "); int m = in.nextInt();
-                                System.out.print("Ano: "); int a = in.nextInt();
-                                System.out.print("Hora (0-23): "); int h = in.nextInt();
-                                System.out.print("Minuto (0-59): "); int min = in.nextInt();
+                                System.out.print("Dia: ");
+                                int d = in.nextInt();
+                                System.out.print("Mês: ");
+                                int m = in.nextInt();
+                                System.out.print("Ano: ");
+                                int a = in.nextInt();
+                                System.out.print("Hora (0-23): ");
+                                int h = in.nextInt();
+                                System.out.print("Minuto (0-59): ");
+                                int min = in.nextInt();
 
                                 novoInicio = LocalDateTime.of(a, m, d, h, min);
                             } catch (Exception e) {
@@ -545,11 +560,16 @@ public class Main {
                         while (novoFim == null) {
                             try {
                                 System.out.println("Nova Data de Término:");
-                                System.out.print("Dia: "); int d = in.nextInt();
-                                System.out.print("Mês: "); int m = in.nextInt();
-                                System.out.print("Ano: "); int a = in.nextInt();
-                                System.out.print("Hora (0-23): "); int h = in.nextInt();     // Novo
-                                System.out.print("Minuto (0-59): "); int min = in.nextInt(); // Novo
+                                System.out.print("Dia: ");
+                                int d = in.nextInt();
+                                System.out.print("Mês: ");
+                                int m = in.nextInt();
+                                System.out.print("Ano: ");
+                                int a = in.nextInt();
+                                System.out.print("Hora (0-23): ");
+                                int h = in.nextInt();     // Novo
+                                System.out.print("Minuto (0-59): ");
+                                int min = in.nextInt(); // Novo
 
                                 LocalDateTime tempFim = LocalDateTime.of(a, m, d, h, min);
 
@@ -602,7 +622,7 @@ public class Main {
     }
 
     private static void verificarAlarmes(Set<Tarefa> tarefas) {
-        System.out.println("Verificando alarmes...");
+        //System.out.println("Verificando alarmes...");
         LocalDateTime agora = LocalDateTime.now();
         boolean temAlerta = false;
 
@@ -628,9 +648,9 @@ public class Main {
         }
 
         if (!temAlerta) {
-            System.out.println("Nenhum alarme ativo no momento.");
+            //System.out.println("Nenhum alarme ativo no momento.");
         }
-        System.out.println("--------------------------------\n");
+        //System.out.println("--------------------------------\n");
     }
 
     private static String limparTexto(String texto) {
