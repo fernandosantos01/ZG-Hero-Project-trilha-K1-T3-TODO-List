@@ -1,0 +1,123 @@
+* {
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f4f7f6;
+    color: #333;
+    padding: 20px;
+    margin: 0;
+}
+
+.conteiner {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+h1 {
+    text-align: center;
+    color: #2c3e50;
+}
+
+.cartao {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+.grupo-controle {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"], textarea, select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.botoes-acao {
+    display: flex;
+    gap: 10px;
+}
+
+button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #3498db;
+    color: white;
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: #2980b9;
+}
+
+#botao-cancelar {
+    background-color: #95a5a6;
+}
+
+.oculto {
+    display: none !important;
+}
+
+.filtros {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    background: #fdfdfd;
+    border: 1px solid #eee;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.detalhes-tarefa {
+    flex-grow: 1;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.8em;
+    font-weight: bold;
+    color: white;
+    margin-top: 5px;
+}
+
+.status-TODO { background-color: #e74c3c; }
+.status-DOING { background-color: #f39c12; }
+.status-DONE { background-color: #2ecc71; }
+
+.acoes-tarefa button {
+    margin-left: 5px;
+    padding: 5px 10px;
+    font-size: 0.9em;
+}
+
+.botao-editar { background-color: #f1c40f; color: #333; }
+.botao-excluir { background-color: #e74c3c; }

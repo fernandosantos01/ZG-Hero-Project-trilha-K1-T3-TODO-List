@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="cc8d8417-05a5-445f-a795-d0c6b6fafa40" name="Changes" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CopilotPersistence">
+    <persistenceIdMap>
+      <entry key="_/home/fernando/IdeaProjects/TODOList" value="38zcATfm5rnVO0L8Ln5jqOH7qo2" />
+    </persistenceIdMap>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Enum" />
+        <option value="Class" />
+        <option value="Exception" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;fernandosantos01&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;git@github.com:fernandosantos01/ZG-Hero-Project-trilha-K1-T3-TODO-List.git&quot;,
+    &quot;accountId&quot;: &quot;e6207d6d-eff9-4789-aecb-9ff1e4adcb37&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
+  <component name="ProjectId" id="38zcATfm5rnVO0L8Ln5jqOH7qo2" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.TarefaTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TarefaTest.deve atualizar uma tarefa já existente.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TarefaTest.deve criar uma tareda chamando o metodo criarTarefa da classe main.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TarefaTest.deve listar todas as tarefas no console quando o utilizador escolhe a opcao 5.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TarefaTest.deve tentar remover uma tarefa com ID inexistente.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TarefaTest.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;/home/fernando/IdeaProjects/TODOList/src/main/java/org/example/Main.java&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/backend" />
+    </key>
+  </component>
+  <component name="RunManager" selected="JUnit.TarefaTest.deve listar todas as tarefas no console quando o utilizador escolhe a opcao 5">
+    <configuration name="TarefaTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TODOList" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="TarefaTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TarefaTest.deve atualizar uma tarefa já existente" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TODOList" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="TarefaTest" />
+      <option name="METHOD_NAME" value="deve atualizar uma tarefa já existente" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TarefaTest.deve criar uma tareda chamando o metodo criarTarefa da classe main" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TODOList" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="TarefaTest" />
+      <option name="METHOD_NAME" value="deve criar uma tareda chamando o metodo criarTarefa da classe main" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TarefaTest.deve listar todas as tarefas no console quando o utilizador escolhe a opcao 5" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TODOList" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="TarefaTest" />
+      <option name="METHOD_NAME" value="deve listar todas as tarefas no console quando o utilizador escolhe a opcao 5" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TarefaTest.deve tentar remover uma tarefa com ID inexistente" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TODOList" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="TarefaTest" />
+      <option name="METHOD_NAME" value="deve tentar remover uma tarefa com ID inexistente" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.TarefaTest.deve listar todas as tarefas no console quando o utilizador escolhe a opcao 5" />
+        <item itemvalue="JUnit.TarefaTest.deve atualizar uma tarefa já existente" />
+        <item itemvalue="JUnit.TarefaTest" />
+        <item itemvalue="JUnit.TarefaTest.deve tentar remover uma tarefa com ID inexistente" />
+        <item itemvalue="JUnit.TarefaTest.deve criar uma tareda chamando o metodo criarTarefa da classe main" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-30f59d01ecdd-2fc7cc6b9a17-intellij.indexing.shared.core-IU-253.32098.37" />
+        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-IU-253.32098.37" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="cc8d8417-05a5-445f-a795-d0c6b6fafa40" name="Changes" comment="" />
+      <created>1769805700407</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1769805700407</updated>
+      <workItem from="1769805702136" duration="3527000" />
+      <workItem from="1769866862773" duration="23492000" />
+      <workItem from="1770015009713" duration="11000" />
+      <workItem from="1770066163357" duration="6170000" />
+      <workItem from="1770072652157" duration="6812000" />
+      <workItem from="1771551529300" duration="9764000" />
+      <workItem from="1771612384694" duration="1744000" />
+      <workItem from="1773407795371" duration="12000" />
+      <workItem from="1773665207517" duration="7168000" />
+      <workItem from="1773736319090" duration="615000" />
+      <workItem from="1773774690115" duration="10000" />
+      <workItem from="1773948880416" duration="674000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="github-copilot-workspace">
+    <instructionFileLocations>
+      <option value=".github/instructions" />
+    </instructionFileLocations>
+    <promptFileLocations>
+      <option value=".github/prompts" />
+    </promptFileLocations>
+  </component>
+</project>
