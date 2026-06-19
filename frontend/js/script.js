@@ -22,7 +22,7 @@ formularioTarefa.addEventListener('submit', function(evento) {
     };
 
     if (idAtual) {
-        const indiceTarefa = listaTarefas.findIndex(tarefa => tarefa.id == idAtual);
+        const indiceTarefa = listaTarefas.findIndex(tarefa => tarefa.id === idAtual);
         if (indiceTarefa !== -1) {
             listaTarefas[indiceTarefa] = { ...novaTarefa, id: parseInt(idAtual) };
         }
