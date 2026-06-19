@@ -7,6 +7,7 @@ body {
     background-color: #f4f7f6;
     color: #333;
     padding: 20px;
+    padding-bottom: 90px;
     margin: 0;
 }
 
@@ -68,6 +69,10 @@ button:hover {
     background-color: #95a5a6;
 }
 
+#botao-cancelar:hover {
+    background-color: #7f8c8d;
+}
+
 .oculto {
     display: none !important;
 }
@@ -79,9 +84,39 @@ button:hover {
     gap: 10px;
 }
 
+/* --- Controle de seleção em massa --- */
+
+.controle-selecao {
+    padding: 8px 0 12px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 10px;
+}
+
+.label-selecionar-todas {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: bold;
+    font-size: 0.9em;
+    color: #555;
+    cursor: pointer;
+    margin-bottom: 0;
+}
+
+#selecionar-todas {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: #3498db;
+    flex-shrink: 0;
+}
+
+/* --- Lista de tarefas --- */
+
 ul {
     list-style-type: none;
     padding: 0;
+    margin: 0;
 }
 
 li {
@@ -91,12 +126,48 @@ li {
     margin-bottom: 10px;
     border-radius: 4px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    gap: 12px;
+    transition: background-color 0.15s, border-color 0.15s;
+}
+
+li.selecionada {
+    background-color: #ebf5fb;
+    border-color: #3498db;
+}
+
+li.mensagem-vazia {
+    justify-content: center;
+    color: #999;
+    font-style: italic;
+    border: none;
+    background: transparent;
+}
+
+.selecao-tarefa {
+    flex-shrink: 0;
+}
+
+.checkbox-tarefa {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: #3498db;
 }
 
 .detalhes-tarefa {
     flex-grow: 1;
+}
+
+.detalhes-tarefa strong {
+    display: block;
+    margin-bottom: 4px;
+}
+
+.detalhes-tarefa p {
+    margin: 4px 0;
+    color: #555;
+    font-size: 0.95em;
 }
 
 .status-badge {
@@ -109,15 +180,74 @@ li {
     margin-top: 5px;
 }
 
-.status-TODO { background-color: #e74c3c; }
+.status-TODO  { background-color: #e74c3c; }
 .status-DOING { background-color: #f39c12; }
-.status-DONE { background-color: #2ecc71; }
+.status-DONE  { background-color: #2ecc71; }
+
+.acoes-tarefa {
+    flex-shrink: 0;
+    display: flex;
+    gap: 5px;
+}
 
 .acoes-tarefa button {
-    margin-left: 5px;
     padding: 5px 10px;
     font-size: 0.9em;
 }
 
-.botao-editar { background-color: #f1c40f; color: #333; }
+.botao-editar  { background-color: #f1c40f; color: #333; }
+.botao-editar:hover { background-color: #d4ac0d; }
 .botao-excluir { background-color: #e74c3c; }
+.botao-excluir:hover { background-color: #c0392b; }
+
+/* --- Barra de ação em massa (fixa na base) --- */
+
+.barra-selecao {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #2c3e50;
+    color: white;
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 -3px 12px rgba(0,0,0,0.25);
+    z-index: 100;
+}
+
+.barra-selecao #contador-selecionadas {
+    font-weight: bold;
+    font-size: 0.95em;
+}
+
+.acoes-massa {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.acoes-massa select {
+    padding: 8px 10px;
+    border-radius: 4px;
+    border: none;
+    font-size: 0.9em;
+    width: auto;
+}
+
+#botao-aplicar-massa {
+    background-color: #2ecc71;
+}
+
+#botao-aplicar-massa:hover {
+    background-color: #27ae60;
+}
+
+#botao-limpar-selecao {
+    background-color: #7f8c8d;
+}
+
+#botao-limpar-selecao:hover {
+    background-color: #6c7a7d;
+}
