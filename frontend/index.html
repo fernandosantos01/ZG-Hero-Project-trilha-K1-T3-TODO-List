@@ -17,12 +17,26 @@
 
                 <div class="grupo-controle">
                     <label for="titulo">Título:</label>
-                    <input type="text" id="titulo" required>
+                    <input type="text" id="titulo">
+                    <span class="mensagem-erro" id="erro-titulo"></span>
                 </div>
 
                 <div class="grupo-controle">
                     <label for="descricao">Descrição:</label>
-                    <textarea id="descricao" rows="3" required></textarea>
+                    <textarea id="descricao" rows="3"></textarea>
+                    <span class="mensagem-erro" id="erro-descricao"></span>
+                </div>
+
+                <div class="grupo-controle">
+                    <label for="prioridade">Prioridade (1 a 5):</label>
+                    <input type="text" id="prioridade" placeholder="Ex: 3" maxlength="1">
+                    <span class="mensagem-erro" id="erro-prioridade"></span>
+                </div>
+
+                <div class="grupo-controle">
+                    <label for="data-termino">Data de Término (dd/mm/aaaa):</label>
+                    <input type="text" id="data-termino" placeholder="Ex: 31/12/2026" maxlength="10">
+                    <span class="mensagem-erro" id="erro-data-termino"></span>
                 </div>
 
                 <div class="grupo-controle">

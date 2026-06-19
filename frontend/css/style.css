@@ -184,6 +184,34 @@ li.mensagem-vazia {
 .status-DOING { background-color: #f39c12; }
 .status-DONE  { background-color: #2ecc71; }
 
+.badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 6px;
+    align-items: center;
+}
+
+.prioridade-badge {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.8em;
+    font-weight: bold;
+    color: white;
+}
+
+.prioridade-1 { background-color: #27ae60; }
+.prioridade-2 { background-color: #2980b9; }
+.prioridade-3 { background-color: #f39c12; }
+.prioridade-4 { background-color: #e67e22; }
+.prioridade-5 { background-color: #c0392b; }
+
+.data-badge {
+    font-size: 0.82em;
+    color: #666;
+}
+
 .acoes-tarefa {
     flex-shrink: 0;
     display: flex;
@@ -250,4 +278,20 @@ li.mensagem-vazia {
 
 #botao-limpar-selecao:hover {
     background-color: #6c7a7d;
+}
+
+/* --- Validação de formulário --- */
+
+.campo-erro {
+    border-color: #e74c3c !important;
+    background-color: #fdf3f2;
+}
+
+.mensagem-erro {
+    display: block;
+    color: #e74c3c;
+    font-size: 0.82em;
+    font-weight: normal;
+    margin-top: 4px;
+    min-height: 1em;
 }
